@@ -1,8 +1,8 @@
 
 import getArgs from './helpers/args.js'
-import { printError,printSuccess, printHelp } from './services/log.service.js'
+import { printError,printSuccess, printHelp, printWeather } from './services/log.service.js'
 import { getToken, saveToken, TOKEN_DICTIONARY } from './services/storage.service.js'
-import { getWeather } from './services/api.service.js'
+import { getIcon, getWeather } from './services/api.service.js'
 
 const Token = async token => {
   if(!token.length) {
@@ -34,7 +34,8 @@ const getForecast = async () => {
   try { 
     const city = process.env.CITY ?? await getToken(TOKEN_DICTIONARY.city)
     const response = await getWeather(city)
-    console.log(response);
+    printWeather(response, getIcon(response.weather[0].icon))
+    //console.log(response);
   } catch (error) {
     if (error?.response?.status == 404) {
       printError("City not found")
