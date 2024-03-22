@@ -22,6 +22,7 @@ const startCLI = () =>
 {
   const args = getArgs(process.argv)
   // console.log(args);
+  console.log(process.env);
   if(args.h)
   {
     printHelp()
@@ -37,7 +38,7 @@ const startCLI = () =>
 		// save token
 	}
   // result
-  getWeather('Nukus')
+  getWeather(process.env.CITY ?? 'Nukus')
   }
 
 

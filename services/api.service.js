@@ -5,7 +5,7 @@ import axios from 'axios'
 
 const getWeather = async city => {
 	//https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
-	const token = await getToken(TOKEN_DICTIONARY.token)
+	const token =  await getToken(TOKEN_DICTIONARY.token)
 
 	if (!token) {
 		throw console.error('API doesn`t exist or token was invalid')
@@ -13,15 +13,15 @@ const getWeather = async city => {
 
 	//! With Axios
 
-	const {data} = await axios.get('https://api.openweathermap.org/data/2.5/weather', {
+	const response = process.env.TOKEN ?? (await axios.get('https://api.openweathermap.org/data/2.5/weather'), {
 		params: {
 			q: city,
 			appid: token,
-			lang: 'ru',
+			lang: 'en',
 			units: 'metric'
 		}
 	})
-	return data
+	console.log(response.data);
 	
 	//! With https 
 
